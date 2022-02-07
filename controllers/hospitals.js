@@ -1,34 +1,71 @@
-exports.getHospitals = (req, res, next) => {
+const Hospital = require("../models/Hospital");
+
+exports.getHospitals = async (req, res, next) => {
+  try {
+    const hospitals = await Hospital.find();
+    res.status(200).json({
+      sucess: true,
+      data: hospitals,
+    });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
+};
+
+exports.getHospital = async (req, res, next) => {
+  try {
+    const hospital = await Hospital.findById(req.params.id);
+    if (!hospital) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({
+      sucess: true,
+      data: hospital,
+    });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
+};
+
+exports.createHospital = async (req, res, next) => {
+  const hospital = await Hospital.create(req.body);
   res.status(200).json({
-    sucess: true,
-    msg: "Show all hospitals",
+    success: true,
+    data: hospital,
   });
 };
 
-exports.getHospital = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: `Show hospital ${req.params.id}`,
-  });
+exports.updateHospital = async (req, res, next) => {
+  try {
+    const hospital = await Hospital.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      success: true,
+      data: hospital,
+    });
+
+    if (!hospital) {
+      return res.status(400).json({ success: false });
+    }
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
-exports.createHospital = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: "Create new hospitals",
-  });
-};
+exports.deleteHospital = async (req, res, next) => {
+  try {
+    const hospital = await Hospital.findByIdAndDelete(req.params.id);
 
-exports.updateHospital = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: `Update hospital ${req.params.id}`,
-  });
-};
-
-exports.deleteHospital = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: `Delete hospital ${req.params.id}`,
-  });
+    if (!hospital) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({
+      success: true,
+      data: {},
+    });
+  } catch (err) {
+    return res.status(400).json({ success: false });
+  }
 };
