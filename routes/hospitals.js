@@ -9,18 +9,16 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getHospitals).post(createHospital);
+const { protect, authorize } = require("../middleware/auth");
+
+router
+  .route("/")
+  .get(getHospitals)
+  .post(protect, authorize("admin"), createHospital);
 router
   .route("/:id")
   .get(getHospital)
-  .put(updateHospital)
-  .delete(deleteHospital);
-
-router.get("/:id", (req, res) => {
-  res.status(200).json({
-    success: true,
-    msg: `Show hospital ${req.params.id}`,
-  });
-});
+  .put(protect, authorize("admin"), updateHospital)
+  .delete(protect, authorize("admin"), deleteHospital);
 
 module.exports = router;
