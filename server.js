@@ -6,6 +6,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const cors = require("cors");
 
 // Load env nars
 dotenv.config({
@@ -36,6 +38,12 @@ app.use(helmet());
 
 // Prevent XSS attacks
 app.use(xss());
+
+// Prevent http param pollutions
+app.use(hpp());
+
+// Enable CORS
+app.use(cors());
 
 // Rate Limiting
 const limiter = rateLimit({
