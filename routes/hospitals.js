@@ -19,7 +19,7 @@ const { protect, authorize } = require("../middleware/auth");
  * @swagger
  * components:
  *  schemas:
- *    Hospitals:
+ *    Hospital:
  *      type: object
  *      required:
  *        - name
@@ -87,7 +87,7 @@ const { protect, authorize } = require("../middleware/auth");
  *            schema:
  *              type: array
  *              items:
- *                $ref: '#/components/schemas/Hospitals'
+ *                $ref: '#/components/schemas/Hospital'
  */
 
 /**
@@ -109,7 +109,7 @@ const { protect, authorize } = require("../middleware/auth");
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Hospitals'
+ *              $ref: '#/components/schemas/Hospital'
  *      404:
  *        description: The hospital was not found
  */
@@ -125,14 +125,14 @@ const { protect, authorize } = require("../middleware/auth");
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/Hospitals'
+ *            $ref: '#/components/schemas/Hospital'
  *    responses:
  *      201:
  *        description: The hospital was successfully created
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Hospitals'
+ *              $ref: '#/components/schemas/Hospital'
  *      500:
  *        description: Some server error
  */
@@ -155,14 +155,14 @@ const { protect, authorize } = require("../middleware/auth");
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/Hospitals'
+ *            $ref: '#/components/schemas/Hospital'
  *    responses:
  *      200:
  *        description: The hospital was updated
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Hospitals'
+ *              $ref: '#/components/schemas/Hospital'
  *      404:
  *        description: The hospital was not found
  *      500:
